@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sample</title>
+
+	<!-- external dependencies -->
+	<link rel="stylesheet" href="../lib/jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" href="./UISample.css">
+	<script src="../lib/jquery-3.1.1/jquery.min.js"></script>
+	<script src="../lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	
+	<!-- naturalQueryForREST dependencies -->
+	<script src="../src/Parser.js"></script>
+	<script src="../src/Completer.js"></script>
+	<script src="../src/Attribute.js"></script>
+	<script src="../src/NaturalQueryProcessor.js"></script>
+
+	<script>
+	NaturalQuery(
+		"#naturalQuery",
+		[
+			{
+				naturalName: "title",
+				valuesRetreiverUrl: "http://google.com"
+			},{
+				naturalName: "year",
+				valuesRetreiverUrl: "http://google.com"				
+			},{
+				naturalName: "name",
+				possibleValues: ["benjamin", "estelle", "anais", "juliette"]
+			}
+		]
+	).process();
+	</script>
+</head>
+
+<body>
+	<label for="naturalQuery">natural query : </label>
+	<input id="naturalQuery" style="width:800px;">
+</body>
+
+</html>
