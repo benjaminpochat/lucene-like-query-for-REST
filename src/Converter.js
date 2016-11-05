@@ -5,9 +5,18 @@
  * 
  * TODO : implement a solution to deal with OData query format : http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792
  */
-var Converter = function(){
+
+var Converter = function( selector ){
 
 	var parser = new Parser();
+	
+	/**
+	 * Main function : converts the natural query which is the value of input field pointed by the selector
+	 */
+	this.convert = function() {
+		var naturalQuery = $( selector ).val();
+		return this.convertNaturalQuery(naturalQuery);
+	}
 	
 	/**
 	 * Function to call to convert the natural query into REST query.

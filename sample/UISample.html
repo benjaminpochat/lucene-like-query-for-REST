@@ -14,10 +14,11 @@
 	<script src="../src/Parser.js"></script>
 	<script src="../src/Completer.js"></script>
 	<script src="../src/Attribute.js"></script>
+	<script src="../src/Converter.js"></script>
 	<script src="../src/NaturalQueryProcessor.js"></script>
 
 	<script>
-	NaturalQuery(
+	var converter = NaturalQuery(
 		"#naturalQuery",
 		[
 			{
@@ -36,8 +37,15 @@
 </head>
 
 <body>
-	<label for="naturalQuery">natural query : </label>
-	<input id="naturalQuery" style="width:800px;">
+	<div id="user-input">
+		<label for="naturalQuery">natural query : </label>
+		<input id="naturalQuery" style="width:800px;">
+	</div>
+	<div>
+		<button onclick="$('#generated-url').text(converter.convert())">create REST filter</button>
+	</div>
+	<div id="generated-url">
+	</div>
 </body>
 
 </html>

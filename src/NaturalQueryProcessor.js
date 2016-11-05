@@ -8,8 +8,10 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 	var selector = selector;
 	var completer = new Completer(attributes);
 		
+	/**
+	 * Main function : initialize the input field pointed by the selector
+	 */
 	this.process = function () {
-		// main function :
 		var callbackFunction = this.getPossibleValues;
 		var selectFunction = this.updateValueAfterSelect
 		$(function() {
@@ -23,6 +25,7 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 				}
 			});
 		});
+		return new Converter( selector );
 	};
 	
 	this.getPossibleValues = function (request, response) {
@@ -36,5 +39,4 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 		$(selector).val(completedString);
 		return false;		
 	}
-	
 };
