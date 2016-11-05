@@ -52,11 +52,6 @@ var Parser = function(){
 		if ( ( cleanString == "undefined" || cleanString == "") && ( fullConditions !=  null ) ){
 			cleanString = fullConditions[fullConditions.length - 1];
 		}
-		if ( cleanString != null){
-			if ( cleanString.endsWith("]") || cleanString.endsWith("\"") ) {
-				cleanString = undefined ;
-			}
-		}
 		
 		if(cleanString === undefined){
 			return cleanString;

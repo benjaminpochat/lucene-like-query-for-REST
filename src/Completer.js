@@ -13,7 +13,7 @@ var Completer = function( attributes ){
 			// Case 1 : the user is typing an attribute name
 			return this.getMatchingAttributes( string );
 		} else {
-			// Case 2 : the user is typing en attribute value
+			// Case 2 : the user is typing an attribute value
 			return this.getMatchingValues( string );
 		}
 	};
@@ -76,7 +76,12 @@ var Completer = function( attributes ){
 		}else{
 			var colonIndex = lastConditionCurrentlyTyped.indexOf(":");
 			var attributeName = lastConditionCurrentlyTyped.substring(0, colonIndex + 1 );
-			completedNaturalQuery += attributeName + selectedItem.label + " ";
+			var isSelectItemContainsBlanks = selectedItem.label.indexOf(" ") > 0;
+			if(isSelectItemContainsBlanks){
+				completedNaturalQuery += attributeName + "\"" + selectedItem.label + "\" ";
+			}else{
+				completedNaturalQuery += attributeName + selectedItem.label + " ";
+			}
 		}
 		return completedNaturalQuery;
 	}

@@ -73,7 +73,7 @@ describe("get last condition currently typed", function() {
 	});
 
 	it("get last condition currently typed : case first conditon at attribute value with closed bracket", function() {
-		expect(parser.getLastConditionCurrentlyTyped("date:[01012016 31012016]")).toBeUndefined();
+		expect(parser.getLastConditionCurrentlyTyped("date:[01012016 31012016]")).toEqual("date:[01012016 31012016]");
 	});
 
 });
