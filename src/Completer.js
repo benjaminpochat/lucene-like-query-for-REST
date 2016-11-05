@@ -33,7 +33,12 @@ var Completer = function( attributes ){
 		var lastConditionCurrentlyTyped = this.parser.getLastConditionCurrentlyTyped(string);
 		var colonIndex = lastConditionCurrentlyTyped.indexOf(":");
 		var attributeName = lastConditionCurrentlyTyped.substring(0, colonIndex );
-		var attributeValue = lastConditionCurrentlyTyped.substring(colonIndex + 1);
+		if(lastConditionCurrentlyTyped.indexOf(",") > 0){
+			var comaIndex = lastConditionCurrentlyTyped.lastIndexOf(",");
+			var attributeValue = lastConditionCurrentlyTyped.substring(comaIndex + 1);			
+		}else{			
+			var attributeValue = lastConditionCurrentlyTyped.substring(colonIndex + 1);
+		}
 		var attributePossibleValues = this.getAttribute(attributeName).possibleValues;
 		if ( attributePossibleValues === undefined ) {
 			return null;
@@ -59,29 +64,56 @@ var Completer = function( attributes ){
 	}
 	
 	this.complete = function( string, selectedItem ){
-		var fullConditions = this.parser.splitConditions(string);
+		var fullConditionsAsString = "";
+		var fullConditionsAsArray = this.parser.splitConditions(string);
 		var lastConditionCurrentlyTyped = this.parser.getLastConditionCurrentlyTyped(string);
-		var completedNaturalQuery = "";
-		if ( fullConditions !=  null ) {
-			var fullConditionsLength = fullConditions.length;
-			if(fullConditions[fullConditionsLength - 1] == lastConditionCurrentlyTyped){
+		
+		if ( fullConditionsAsArray !=  null ) {
+			var fullConditionsLength = fullConditionsAsArray.length;
+			if(fullConditionsAsArray[fullConditionsLength - 1] == lastConditionCurrentlyTyped){
 				fullConditionsLength -= 1;
 			}
 			for (i = 0 ; i < fullConditionsLength ; i++ ){
-				completedNaturalQuery += fullConditions[i] + " ";
+				fullConditionsAsString += fullConditionsAsArray[i] + " ";
 			}
 		}
+		
+		var completedNaturalQuery = "";
 		if(this.parser.isLastTokenAttributeName(string)){
-			completedNaturalQuery += selectedItem.label + ":";
+			completedNaturalQuery = fullConditionsAsString + selectedItem.label + ":";
 		}else{
-			var colonIndex = lastConditionCurrentlyTyped.indexOf(":");
-			var attributeName = lastConditionCurrentlyTyped.substring(0, colonIndex + 1 );
-			var isSelectItemContainsBlanks = selectedItem.label.indexOf(" ") > 0;
-			if(isSelectItemContainsBlanks){
-				completedNaturalQuery += attributeName + "\"" + selectedItem.label + "\" ";
+			if(lastConditionCurrentlyTyped.indexOf(",") > 0){
+				completedNaturalQuery = this.completeMultiValueFilter(fullConditionsAsString, lastConditionCurrentlyTyped, selectedItem);
 			}else{
-				completedNaturalQuery += attributeName + selectedItem.label + " ";
+				completedNaturalQuery = this.completeSimpleValueFilter(fullConditionsAsString, lastConditionCurrentlyTyped, selectedItem);
 			}
+		}
+		return completedNaturalQuery;
+	}
+	
+	this.completeSimpleValueFilter = function(fullConditions, lastConditionCurrentlyTyped, selectedItem) {
+		var completedNaturalQuery = "";
+		var colonIndex = lastConditionCurrentlyTyped.indexOf(":");
+		var attributeName = lastConditionCurrentlyTyped.substring(0, colonIndex + 1 );
+		var isMultiValueCurrentlyTyped = lastConditionCurrentlyTyped.indexOf(",") > 0;
+		var isSelectItemContainsBlanks = selectedItem.label.indexOf(" ") > 0;
+		if(isSelectItemContainsBlanks){
+			completedNaturalQuery = fullConditions + attributeName + "\"" + selectedItem.label + "\" ";
+		}else{
+			completedNaturalQuery = fullConditions + attributeName + selectedItem.label + " ";
+		}
+		return completedNaturalQuery;
+	}
+	
+	this.completeMultiValueFilter = function(fullConditions, lastConditionCurrentlyTyped, selectedItem) {
+		var completedNaturalQuery = "";
+		var lastComaIndex = lastConditionCurrentlyTyped.lastIndexOf(",");
+		var attributeNameAndFirstValues = lastConditionCurrentlyTyped.substring(0, lastComaIndex + 1 );
+		var isSelectItemContainsBlanks = selectedItem.label.indexOf(" ") > 0;
+		if(isSelectItemContainsBlanks){
+			completedNaturalQuery = fullConditions + attributeNameAndFirstValues + "\"" + selectedItem.label + "\" ";
+		}else{
+			completedNaturalQuery = fullConditions + attributeNameAndFirstValues + selectedItem.label + " ";
 		}
 		return completedNaturalQuery;
 	}
