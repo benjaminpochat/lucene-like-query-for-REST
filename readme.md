@@ -1,24 +1,24 @@
-A  javascript utility to autocomplete and convert queries written in simplistic Lucene query syntax into CXF Query Language.
+A  javascript utility to autocomplete and convert queries written in simplistic Lucene-like query syntax into CXF Query Language.
 
 # Implemented :
 * parsing of a simplistic Lucene query syntax including the following patterns :
-** `name:jean` (simple equal filter, with no white space) 
-** `band:"daft punk"` (equal filter with white spaces) 
-** `name:jean,georges,bob` (multivalue, interprated with "or" operator)
-** `quantity>3` (greater or equal)
-** `quantity<3` (lower or equal) 
-** `quantity:[3 10]` (range of values) 
-* autocompletion with values given in an array, for mono-value equality filters (with or without white spaces)
+	* `name:jean` (simple equal filter, with no white space) 
+	* `band:"daft punk"` (equal filter with white spaces) 
+	* `name:jean,georges,bob` (multivalue, interprated with "or" operator)
+	* `quantity>3` (greater or equal)
+	* `quantity<3` (lower or equal) 
+	* `quantity:[3 10]` (range of values) 
+* autocompletion with values given in an array, only for mono-value equality filters (with or without white spaces)
 * conversion into FIQL format
 
 Try it with the file UISample.html. 
 
-# TODO : 
-* autocompletion with values given in an array, for multi-value equality filters (with or without white spaces)
-* add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
-* conversion into odata filter format
-* autocompletion with values given from REST url
-* adding tooling to minimize the scripts
+# TODOs : 
+1. autocompletion with values given in an array, for multi-value equality filters (with or without white spaces)
+2. add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
+3. conversion into odata filter format
+4. autocompletion with values given from REST url
+5. adding tooling to minimize the scripts
 
 
 # References : 
