@@ -4,19 +4,19 @@ A  javascript utility to autocomplete and convert queries written in simplistic 
 * parsing of a simplistic Lucene query syntax including the following patterns :
 	* `name:jean` (simple equal filter, with no white space) 
 	* `band:"daft punk"` (equal filter with white spaces) 
-	* `name:georges,"jean seb",bob` (multivalue, interprated with "or" operator)
+	* `name:georges,"jean seb",bob` (multivalue, interpreted with "or" operator)
 	* `quantity>3` (greater or equal)
 	* `quantity<3` (lower or equal) 
 	* `quantity:[3 10]` (range of values) 
 * autocompletion with values given in an array (with or without white spaces)
-* conversion into [FIQL format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
+* conversion into [FIQL firlter format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
 
 Try it with the file UISample.html. 
 
 # TODOs : 
 1. autocompletion with values given from REST url
 2. adding tooling to minimize the scripts
-3. conversion into odata filter format
+3. conversion into [odata filter format](http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792)
 4. add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
 
 
