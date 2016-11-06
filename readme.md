@@ -11,7 +11,7 @@ A  javascript utility to autocomplete and convert queries written in simplistic 
 * autocompletion with values given in an array (with or without white spaces)
 * conversion into [FIQL filter format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
 
-Try it with the file UISample.html. 
+Try it localy with the file UISample.html in this repo, or or try it online on [jsfiddle.net](https://jsfiddle.net/benjaminpochat/ngpqv0gt/)
 
 # TODOs : 
 1. autocompletion with values given from REST url

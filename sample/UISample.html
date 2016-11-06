@@ -17,34 +17,38 @@
 	<script src="../src/NaturalQueryProcessor.js"></script>
 
 	<script>
-	var converter = NaturalQuery(
-		"#naturalQuery",
-		[
-			{
-				naturalName: "title",
-				valuesRetreiverUrl: "http://google.com"
-			},{
-				naturalName: "year",
-				valuesRetreiverUrl: "http://google.com"				
-			},{
-				naturalName: "name",
-				possibleValues: ["benjamin bernard", "estelle", "anais renée alice", "juliette"]
-			} 
-		]
-	).process();
+	  converter = NaturalQuery(
+		  "#naturalQuery", [{
+		    naturalName: "title"
+		  }, {
+		    naturalName: "year"
+		  }, {
+		    naturalName: "artist",
+		    possibleValues: ["daft punk", "moriarty", "the rolling stones", "abba"]
+		  }]
+		).process();
+	  
+	  $(function() {
+	  	$('#converter-button').on(
+	    	"click", 
+	      function() {
+	      	$('#generated-url').text(converter.convert());
+	      });
+	  });
 	</script>
 </head>
 
 <body>
-	<div id="user-input">
-		<label for="naturalQuery">natural query : </label>
-		<input id="naturalQuery" style="width:800px;">
-	</div>
-	<div>
-		<button onclick="$('#generated-url').text(converter.convert())">create REST filter</button>
-	</div>
-	<div id="generated-url">
-	</div>
+  <div id="user-input">
+    <label for="naturalQuery">natural query : </label>
+    <input id="naturalQuery" style="width:400px;">
+  </div>
+  <div>
+    <button id="converter-button">create REST filter</button>
+  </div>
+  <div id="generated-url">
+  </div>
 </body>
+
 
 </html>
