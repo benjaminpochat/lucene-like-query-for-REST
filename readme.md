@@ -9,7 +9,7 @@ A  javascript utility to autocomplete and convert queries written in simplistic 
 	* `quantity<3` (lower or equal) 
 	* `quantity:[3 10]` (range of values) 
 * autocompletion with values given in an array (with or without white spaces)
-* conversion into [FIQL firlter format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
+* conversion into [FIQL filter format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
 
 Try it with the file UISample.html. 
 
