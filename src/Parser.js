@@ -9,7 +9,7 @@ var Parser = function(){
 	this.SIMPLE_EQUAL_PATTERN =           "(\\w+):([^,\\\"\\[\\] ]+)";
 	this.GREATER_OR_EQUAL_PATTERN =       "(\\w+)>([^,\\\"\\[\\] ]+)";
 	this.LOWER_OR_EQUAL_PATTERN =         "(\\w+)<([^,\\\"\\[\\] ]+)";
-	this.MULTI_VALUE_PATTERN =            "(\\w+):([^,\\\"\\[\\] ]+)((,([^,\\\"\\[\\] ]+))+)";
+	this.MULTI_VALUE_PATTERN =            "(\\w+):(([^,\\\"\\[\\] ]+)|(\\\"[^\\\"]+\\\"))((,(([^,\\\"\\[\\] ]*)|(\\\"[^\\\"]+\\\")*)+)*)"
 	this.EQUAL_WITH_WHITE_SPACE_PATTERN = "(\\w+):(\\\"[^\\\"]+\\\")";
 	this.RANGE_PATTERN =				  "(\\w+):(\\[[^\\[\\]]+\\])";
 	
