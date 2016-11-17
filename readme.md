@@ -16,9 +16,8 @@ Try it localy with the file UISample.html in this repo, or or try it online on [
 # TODOs : 
 1. enable a default attribute for the conditions with no `title:value` but just `value` 
 2. autocompletion with values given from REST url
-3. adding tooling to minimize the scripts
-4. conversion into [odata filter format](http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792)
-5. add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
+3. conversion into [odata filter format](http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792)
+4. add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
 
 
 # References : 
