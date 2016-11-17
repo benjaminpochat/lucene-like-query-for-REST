@@ -1,4 +1,4 @@
-A  javascript utility to autocomplete and convert queries written in simplistic Lucene-like query syntax into CXF Query Language.
+A  javascript utility to autocomplete and convert queries written in simplistic Lucene-like query syntax into a [query language supported by CXF](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages).
 
 # Implemented :
 * parsing of a simplistic Lucene query syntax including the following patterns :
