@@ -1,0 +1,33 @@
+{
+  "name": "lucene-like-query-for-rest",
+  "version": "0.0.2",
+  "description": "A  javascript utility to autocomplete and convert queries written in simplistic Lucene-like query syntax into CXF Query Language.",
+  "main": "NaturalQueryProcessor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminpochat/lucene-like-query-for-REST.git"
+  },
+  "keywords": [
+    "rest",
+    "odata",
+    "fiql",
+    "filter",
+    "query"
+  ],
+  "author": "Benjamin POCHAT",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/benjaminpochat/lucene-like-query-for-REST/issues"
+  },
+  "homepage": "https://github.com/benjaminpochat/lucene-like-query-for-REST#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "jasmine": "^2.5.2",
+    "jquery": "^3.1.1",
+    "jquery-ui": "^1.12.1"
+  }
+}
