@@ -6,9 +6,9 @@
  * TODO : implement a solution to deal with OData query format : http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792
  */
 
-var Converter = function( selector ){
-
-	var parser = new Parser();
+var Converter = function( selector, attributes ){
+	this.attributes = attributes;
+	this.parser = new Parser();
 	
 	/**
 	 * Main function : converts the natural query which is the value of input field pointed by the selector
@@ -22,7 +22,7 @@ var Converter = function( selector ){
 	 * Function to call to convert the natural query into REST query.
 	 */
 	this.convertNaturalQuery = function( naturalQuery ) {
-		var naturalConditions = parser.splitConditions( naturalQuery );
+		var naturalConditions = this.parser.splitConditions( naturalQuery );
 		var restQuery = "";
 		for ( var i = 0 ; i < naturalConditions.length ; i++ ) {
 			if(i == 0){
@@ -35,22 +35,22 @@ var Converter = function( selector ){
 	};
 	
 	this.convertNaturalCondition = function( naturalCondition ) {
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.SIMPLE_EQUAL_PATTERN))){
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.SIMPLE_EQUAL_PATTERN))){
 			return this.convertSimpleEqualCondition(naturalCondition);
 		}
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.MULTI_VALUE_PATTERN))){
-			return this.convertMultiValueCondition(naturalCondition);
-		}
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.GREATER_OR_EQUAL_PATTERN))){
-			return this.convertGreaterOrEqualThanCondition(naturalCondition);
-		}
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.LOWER_OR_EQUAL_PATTERN))){
-			return this.convertLowerOrEqualThanCondition(naturalCondition);
-		}
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.EQUAL_WITH_WHITE_SPACE_PATTERN))){
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.EQUAL_WITH_WHITE_SPACE_PATTERN))){
 			return this.convertEqualConditionWhiteSpace(naturalCondition);
 		}
-		if(naturalCondition.match(parser.buildConditionRegExp(parser.RANGE_PATTERN))){
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.MULTI_VALUE_PATTERN))){
+			return this.convertMultiValueCondition(naturalCondition);
+		}
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.GREATER_OR_EQUAL_PATTERN))){
+			return this.convertGreaterOrEqualThanCondition(naturalCondition);
+		}
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.LOWER_OR_EQUAL_PATTERN))){
+			return this.convertLowerOrEqualThanCondition(naturalCondition);
+		}
+		if(naturalCondition.match(this.parser.buildConditionRegExp(this.parser.RANGE_PATTERN))){
 			return this.convertRangeCondition(naturalCondition);
 		}
 	};
@@ -66,17 +66,45 @@ var Converter = function( selector ){
 	this.convertLowerOrEqualThanCondition = function( naturalCondition ){
 		return this.convertSimpleCondition(naturalCondition, "<", "=le=");
 	};
-
+	
 	this.convertSimpleCondition = function( 
 			naturalCondition, 
 			naturalConditionOperator, 
 			restConditionOperator ){
-		var separatorIndex = naturalCondition.indexOf(naturalConditionOperator);
-		var searchAttribute = naturalCondition.substring(0, separatorIndex);
-		var searchValue = naturalCondition.substring(separatorIndex+1);
-		return searchAttribute + restConditionOperator + searchValue;	
+		var separatorIndex = naturalCondition.indexOf( naturalConditionOperator) ;
+		var attributeName = naturalCondition.substring( 0, separatorIndex ) ;
+		var naturalValue = naturalCondition.substring( separatorIndex+1 ) ;
+		var restValue = this.getRestValue( attributeName, naturalValue ) ;
+		return attributeName + restConditionOperator + restValue;	
 	};
 
+	this.getAttribute = function( attributeName ){
+		if(this.attributes === undefined ){
+			return undefined ;
+		}
+		for( i = 0 ; i < this.attributes.length ; i++ ){
+			if(this.attributes[i].naturalName == attributeName){
+				return this.attributes[i];
+			}
+		}
+	}
+	
+	this.getRestValue = function ( attributeName, naturalValue ) {
+		var attribute = this.getAttribute( attributeName ) ;
+		if(attribute === undefined ) {
+			return naturalValue;
+		}
+		if ( ! attribute.mappedValues ) {
+			return naturalValue;
+		} else {
+			for ( i = 0 ; i < attribute.possibleValues.length ; i++ ) {
+				if ( attribute.possibleValues[i].value == naturalValue ) {
+					return attribute.possibleValues[i].key ;
+				}
+			}
+		}
+	};
+	
 	this.convertMultiValueCondition = function( naturalCondition ){
 		var separatorIndex = naturalCondition.indexOf(":");
 		var searchAttribute = naturalCondition.substring(0, separatorIndex);

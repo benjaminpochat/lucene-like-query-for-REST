@@ -9,14 +9,32 @@ var CONTITION_TYPE_RANGE = "CONTITION_TYPE_RANGE";
  * Describes an attribute used in a query.
  */
 var Attribute = function(){
-	this.naturalName;
-	this.valuesRetreiverUrl;
-	this.restName;
-	this.valueFormat;
-	this.authorizedConditionTypes;
-	this.possibleValues;
+	
+	// the name of the attribute as it appears in the natural query, seen by users  
+	this.naturalName ;
+	
+	// the list of suggested values for the attribute (used only if valuesRetreiverUrl is null)
+	this.possibleValues ;
+
+	// a boolean to set if the suggested values are given as a key/value map. 
+	// default is false
+	// if true, the values of the map are suggested to the users, and the keys are used in the REST search api
+	//TODO : to be implemented
+	//QUESTION : what if the value typed by the user doesn't match any key ?
+	//- an error is shown to the user ? => BEST (just as any other syntax error, eg if an attribute is typed but does not exist)
+	//- the attribute is ignored ? => NO
+	//- the condition is always false ? => ACCEPTABLE
+	this.mappedValues ;
+	
+	// the name of the attribute in the REST search api (which can be different from the natural seen by the users)
+	//TODO : to be implemented...
+	this.restName ;
+		
+	// an url to get the possible values through a REST api
+	//TODO : to be implemented...
+	this.valuesRetreiverUrl ;
+
+	// the list of condition types accepted for this attribute
+	//TODO : to be implemented...
+	this.authorizedConditionTypes ;
 }
-
-Attribute.prototype.valueFormat = /\w+/g;
-Attribute.prototype.authorizedConditionTypes = [CONTITION_TYPE_SIMPLE_EQUAL];
-

@@ -1,9 +1,8 @@
 /**
- * A Parser s responsible for converting a natural query into a REST query (in FIQL format).
+ * The Parser is responsible for 
+ * - splitting a natural query into several natural conditions
+ * - detecting what is currently being types : an attribute token or condition value
  * 
- * The REST query is formatted as a FIQL query : https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00
- * 
- * TODO : implement a solution to deal with OData query format : http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792
  */
 var Parser = function(){
 	this.SIMPLE_EQUAL_PATTERN =           "(\\w+):([^,\\\"\\[\\] ]+)";

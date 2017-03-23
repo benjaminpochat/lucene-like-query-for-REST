@@ -39,11 +39,29 @@ var Completer = function( attributes ){
 		}else{			
 			var attributeValue = lastConditionCurrentlyTyped.substring(colonIndex + 1);
 		}
-		var attributePossibleValues = this.getAttribute(attributeName).possibleValues;
+		var attributePossibleValues = this.getPossibleValues( attributeName ) ;
 		if ( attributePossibleValues === undefined ) {
 			return null;
 		} else {
 			return $.ui.autocomplete.filter(attributePossibleValues, attributeValue);
+		}
+	};
+	
+	this.getPossibleValues = function( attributeName ){
+		var attribute = this.getAttribute(attributeName);
+		if ( attribute.possibleValues === undefined ) {
+			return undefined;
+		}
+		if ( ! attribute.mappedValues ) {
+			return attribute.possibleValues ;
+		} else {
+			var possibleValues = [];
+			var i = 0 ; 
+			while ( i < attribute.possibleValues.length ) {
+				possibleValues[i] = attribute.possibleValues[i].value ;
+				i++;
+			}
+			return possibleValues ;
 		}
 	};
 	

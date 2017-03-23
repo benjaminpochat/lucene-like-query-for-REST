@@ -13,7 +13,7 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 	 */
 	this.process = function () {
 		var callbackFunction = this.getPossibleValues;
-		var selectFunction = this.updateValueAfterSelect
+		var selectFunction = this.updateValueAfterSelect;
 		$(function() {
 			$( selector ).autocomplete({
 				position: { my : "right top", at: "right bottom" },
@@ -25,7 +25,7 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 				}
 			});
 		});
-		return new Converter( selector );
+		return new Converter( selector, attributes );
 	};
 	
 	this.getPossibleValues = function (request, response) {

@@ -5,9 +5,9 @@
 	<title>Sample</title>
 
 	<!-- external dependencies -->
-	<link rel="stylesheet" href="../lib/jquery-ui-1.12.1/jquery-ui.min.css">
-	<script src="../lib/jquery-3.1.1/jquery.min.js"></script>
-	<script src="../lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 	
 	<!-- naturalQueryForREST dependencies -->
 	<script src="../src/Parser.js"></script>
@@ -24,7 +24,11 @@
 		    naturalName: "year"
 		  }, {
 		    naturalName: "artist",
-		    possibleValues: ["daft punk", "moriarty", "the rolling stones", "abba"]
+		    possibleValues: [
+		    	{code:1, value: "daft punk"}, 
+		    	{code:2, value: "moriarty"}, 
+		    	{code:3, value: "the rolling stones"},
+		    	{code:4, value: "abba"} ]
 		  }]
 		).process();
 	  
