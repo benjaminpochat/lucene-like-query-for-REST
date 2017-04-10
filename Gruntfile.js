@@ -9,6 +9,9 @@ module.exports = function(grunt) {
 				specs : 'spec/**/*Spec.js'
 			}
 		},
+		jshint: {
+			all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
+		},
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -26,8 +29,11 @@ module.exports = function(grunt) {
 	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
+	// Load the plugin jshint for code quality check
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+
 	// Default task(s).
 	//grunt.registerTask('default', 'jasmine', 'uglify');
-	grunt.registerTask('default', 'jasmine');
+	grunt.registerTask('default', 'jasmine', 'jshint');
 
 };
