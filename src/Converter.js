@@ -10,9 +10,8 @@
  */
 
 var Converter = function( selector , attributes , destinationFormat){
-	const ODATA = "ODATA";
-	const FIQL = "FIQL";
 	this.destinationFormat = destinationFormat == undefined ? ODATA : destinationFormat; 
+	this.restTokenBuilder = new RestTokenBuilder(this.destinationFormat);
 	this.attributes = attributes;
 	this.parser = new Parser();
 
@@ -34,7 +33,7 @@ var Converter = function( selector , attributes , destinationFormat){
 			if(i == 0){
 				restQuery = this.convertNaturalCondition( naturalConditions[i] );
 			}else{
-				restQuery = restQuery + ";" + this.convertNaturalCondition( naturalConditions[i] );			
+				restQuery = restQuery + this.restTokenBuilder.getAndRestToken() + this.convertNaturalCondition( naturalConditions[i] );			
 			}
 		}
 		return restQuery;
@@ -62,15 +61,15 @@ var Converter = function( selector , attributes , destinationFormat){
 	};
 
 	this.convertSimpleEqualCondition = function( naturalCondition ){
-		return this.convertSimpleCondition( naturalCondition, ":", this.getEqualRestToken() );
+		return this.convertSimpleCondition( naturalCondition, ":", this.restTokenBuilder.getEqualRestToken() );
 	};
 
 	this.convertGreaterOrEqualThanCondition = function( naturalCondition ){
-		return this.convertSimpleCondition( naturalCondition, ">", this.getGreaterOrEqualRestToken() );
+		return this.convertSimpleCondition( naturalCondition, ">", this.restTokenBuilder.getGreaterOrEqualRestToken() );
 	};
 
 	this.convertLowerOrEqualThanCondition = function( naturalCondition ){
-		return this.convertSimpleCondition(naturalCondition, "<", this.getLowerOrEqualRestToken());
+		return this.convertSimpleCondition(naturalCondition, "<", this.restTokenBuilder.getLowerOrEqualRestToken());
 	};
 	
 	this.convertSimpleCondition = function( 
@@ -111,25 +110,25 @@ var Converter = function( selector , attributes , destinationFormat){
 			}
 		}
 		
-		if ( this.destinationFormat == ODATA ) {
-			return "'" + restValue + "'" ;
-		} else {
-			return restValue ;
-		}
+		return this.restTokenBuilder.getStringDelimiterRestToken() + restValue + this.restTokenBuilder.getStringDelimiterRestToken() ;
 	};
 	
 	this.convertMultiValueCondition = function( naturalCondition ){
 		var separatorIndex = naturalCondition.indexOf(":");
 		var searchAttribute = naturalCondition.substring(0, separatorIndex);
 		var searchMultiValues = naturalCondition.substring(separatorIndex+1).split(",");
-		var restCondition = "(";
+		var restCondition = this.restTokenBuilder.getLeftParenthesisRestToken();
 		for (var i = 0 ; i < searchMultiValues.length ; i++){
 			if (i > 0){
-				restCondition += ",";
+				restCondition += this.restTokenBuilder.getOrRestToken() ;
 			}
-			restCondition += searchAttribute + "==" + searchMultiValues[i];
+			restCondition += searchAttribute 
+				+ this.restTokenBuilder.getEqualRestToken() 
+				+ this.restTokenBuilder.getStringDelimiterRestToken() 
+				+ searchMultiValues[i]
+				+ this.restTokenBuilder.getStringDelimiterRestToken();
 		}
-		restCondition += ")";
+		restCondition += this.restTokenBuilder.getRightParenthesisRestToken();
 		return restCondition;
 	};
 
@@ -140,7 +139,7 @@ var Converter = function( selector , attributes , destinationFormat){
 		var searchValueWithSpace = searchValueWithSpace.substring(0, searchValueWithSpace.length - 1);
 		var restCondition = 
 			searchAttribute 
-			+ this.getEqualRestToken() 
+			+ this.restTokenBuilder.getEqualRestToken() 
 			+ this.getRestValue( searchAttribute , searchValueWithSpace );
 		return restCondition;
 	};
@@ -153,64 +152,16 @@ var Converter = function( selector , attributes , destinationFormat){
 		var rangeValuesArray = rangeValues.split(" ") ;
 		var restCondition = 
 			searchAttribute 
-			+ this.getGreaterOrEqualRestToken() 
+			+ this.restTokenBuilder.getGreaterOrEqualRestToken() 
+			+ this.restTokenBuilder.getStringDelimiterRestToken() 
 			+ rangeValuesArray[0] 
-			+ this.getAndRestToken() 
+			+ this.restTokenBuilder.getStringDelimiterRestToken() 
+			+ this.restTokenBuilder.getAndRestToken() 
 			+ searchAttribute 
-			+ this.getLowerOrEqualRestToken() 
-			+ rangeValuesArray[1] ;
+			+ this.restTokenBuilder.getLowerOrEqualRestToken() 
+			+ this.restTokenBuilder.getStringDelimiterRestToken() 
+			+ rangeValuesArray[1]
+			+ this.restTokenBuilder.getStringDelimiterRestToken() ;
 		return restCondition ;
 	};	
-	
-	this.getEqualRestToken = function(){
-		switch(this.destinationFormat) {
-		case ODATA :
-			return " eq ";
-		case FIQL :
-			return "==";
-		}
-		return null;
-	} ;
-	
-	
-	this.getGreaterOrEqualRestToken = function(){
-		switch(this.destinationFormat) {
-		case ODATA :
-			return " ge ";
-		case FIQL :
-			return "=ge=";
-		}
-		return null;
-	} ;
-
-	this.getLowerOrEqualRestToken = function(){
-		switch(this.destinationFormat) {
-		case ODATA :
-			return " le ";
-		case FIQL :
-			return "=le=";
-		}
-		return null;
-	} ;
-	
-	this.getAndRestToken = function(){
-		switch(this.destinationFormat) {
-		case ODATA :
-			return " and ";
-		case FIQL :
-			return ";";
-		}
-		return null;
-	} ;
-	
-	this.getOrRestToken = function(){
-		switch(this.destinationFormat) {
-		case ODATA :
-			return " or ";
-		case FIQL :
-			return ",";
-		}
-		return null;
-	} ;	
-	
 };

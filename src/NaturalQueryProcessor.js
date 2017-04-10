@@ -26,17 +26,17 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 			});
 		});
 		return new Converter( selector, attributes );
-	};
+	} ;
 	
 	this.getPossibleValues = function (request, response) {
 		console.log("typed data = " + request.term);
 		possibleValues = completer.getPossibleCompletedQueries(request.term);
 		response(possibleValues);
-	};
+	} ;
 	
 	this.updateValueAfterSelect = function( event, ui ){
 		var completedString = completer.complete(this.value, ui.item); 
 		$(selector).val(completedString);
 		return false;		
-	}
+	} ;
 };
