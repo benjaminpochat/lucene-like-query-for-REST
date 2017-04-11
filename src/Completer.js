@@ -57,8 +57,19 @@ var Completer = function( attributes ){
 			return $.ui.autocomplete.filter(attributePossibleValues, attributeValue);
 		}
 	} ;
-	
-	this.getPossibleValuesFromTableValues = function ( attribute ) {
+
+	this.getPossibleValues = function( attributeName ){
+		var attribute = this.getAttribute(attributeName);
+		if ( attribute.restAPIUrl !== undefined ) {
+			return this.getPossibleValuesFromRestAPI( attribute ) ;
+		}
+		if ( attribute.possibleValues !== undefined ) {
+			return this.getPossibleValuesFromTableOfValues( attribute ) ;
+		}
+		return undefined;
+	} ;
+
+	this.getPossibleValuesFromTableOfValues = function ( attribute ) {
 		if ( ! attribute.mappedValues ) {
 			return attribute.possibleValues ;
 		} else {
@@ -72,19 +83,17 @@ var Completer = function( attributes ){
 		}
 	} ;
 	
-	this.getPossibleValuesFromRestUrl = function ( attribute ) {
-
-	} ;
-
-	this.getPossibleValues = function( attributeName ){
-		var attribute = this.getAttribute(attributeName);
-		if ( attribute.restSearchUrl !== undefined ) {
-			return this.getPossibleValuesFromRestUrl( attribute ) ;
-		}
-		if ( attribute.possibleValues !== undefined ) {
-			return this.getPossibleValuesFromTableValues( attribute ) ;
-		}
-		return undefined;
+	this.getPossibleValuesFromRestAPI = function ( attribute ) {
+		var possibleValues = null ;
+		$.ajax({
+			url: attribute.restAPIUrl,
+			context: document.body,
+			async: false,
+		 	success: function( result ){
+		 		possibleValues = result.map(attribute.restMapperCallback) ;
+			}
+		} ) ;
+		return possibleValues ;	
 	} ;
 
 	this.getAttributeNames = function() {

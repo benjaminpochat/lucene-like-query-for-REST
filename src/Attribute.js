@@ -13,7 +13,7 @@ var Attribute = function(){
 	// the name of the attribute as it appears in the natural query, seen by users  
 	this.naturalName = null ;
 	
-	// the list of suggested values for the attribute (used only if valuesRetreiverUrl is null)
+	// the list of suggested values for the attribute (used only if restAPIUrl is null)
 	this.possibleValues = null ;
 
 	// a boolean to set if the suggested values are given as a key/value map. 
@@ -22,10 +22,10 @@ var Attribute = function(){
 	this.mappedValues = null ;
 	
 	// an url to get the possible values through a REST api
-	this.restSearchUrl = null ;
+	this.restAPIUrl = null ;
 
-	// the name of the attribute in the REST search response with the value displayed to the user
-	this.restValueField = null ;
+	// the function that maps each result retreived with the rest API into an element used in auto-completion
+	this.restMapperCallback = null ;
 
 	// the list of condition types accepted for this attribute
 	//TODO : to be implemented...

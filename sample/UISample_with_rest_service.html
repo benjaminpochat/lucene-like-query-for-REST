@@ -8,8 +8,9 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-	
+
 	<!-- naturalQueryForREST dependencies -->
+	<script src="../src/RestTokenBuilder.js"></script>
 	<script src="../src/Parser.js"></script>
 	<script src="../src/Completer.js"></script>
 	<script src="../src/Attribute.js"></script>
@@ -17,12 +18,21 @@
 	<script src="../src/NaturalQueryProcessor.js"></script>
 
 	<script>
-	  converter = NaturalQuery(
-		  "#naturalQuery", [{
-		  	naturalName: "country" ,
-		  	restSearchUrl: "https://restcountries.eu/rest/v2/name/{0}",
-		  	restValueField: "name"
-		  }]
+		converter = NaturalQuery(
+			"#naturalQuery", 
+			[{
+			  	naturalName: "country" ,
+			  	restAPIUrl: "https://restcountries.eu/rest/v2/",
+			  	restMapperCallback: function ( countryJson ) {
+			 		return countryJson.name ;
+				}
+			},{
+			  	naturalName: "capital" ,
+			  	restAPIUrl: "https://restcountries.eu/rest/v2/",
+			  	restMapperCallback: function ( countryJson ) {
+			 		return countryJson.capital ;
+				}
+			}]
 		).process();
 	  
 	  $(function() {
