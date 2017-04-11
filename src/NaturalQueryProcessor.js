@@ -1,11 +1,8 @@
 var NaturalQuery = function ( selector, attributes ){
-	var selector = selector;
-	var attributes = attributes;
 	return new NaturalQueryProcessor ( selector, attributes );
 };
 
 var NaturalQueryProcessor = function ( selector, attributes ) {
-	var selector = selector;
 	var completer = new Completer(attributes);
 		
 	/**

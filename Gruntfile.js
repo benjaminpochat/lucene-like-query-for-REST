@@ -10,7 +10,10 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
+			all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js'],
+			options:{
+				esversion: 6
+			}
 		},
 		uglify: {
 			options: {
@@ -34,6 +37,6 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	//grunt.registerTask('default', 'jasmine', 'uglify');
-	grunt.registerTask('default', 'jasmine', 'jshint');
+	grunt.registerTask('default', ['jasmine', 'jshint']);
 
 };

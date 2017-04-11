@@ -16,28 +16,39 @@ var Completer = function( attributes ){
 			// Case 2 : the user is typing an attribute value
 			return this.getMatchingValues( string );
 		}
-	};
+	} ;
 	
+	/**
+	 * Returns the list of the attribute names that match with the string argument.
+	 */
 	this.getMatchingAttributes = function( string ){
 		var lastConditionCurrentlyTyped = this.parser.getLastConditionCurrentlyTyped(string); 
 		var attributeNames = this.getAttributeNames();
 		return $.ui.autocomplete.filter(attributeNames, lastConditionCurrentlyTyped);
-	}
+	} ;
 	
+	/**
+	 * @TODO 
+	 * Returns the list of attributes patterns (attributes natural names + authorized condition types) 
+	 * which begins with the string argument. 
+	 */
 	this.getMatchingAttributesPatterns = function( string ){
-		// TODO : returns the list of attributes patterns (attributes natural names + authorized condition types) which begins with the string argument. 
 		return null;
-	};
+	} ;
 	
+	/**
+	 * Returns the list of values that can complete the string argument.
+	 */
 	this.getMatchingValues = function( string ){
 		var lastConditionCurrentlyTyped = this.parser.getLastConditionCurrentlyTyped(string);
 		var colonIndex = lastConditionCurrentlyTyped.indexOf(":");
 		var attributeName = lastConditionCurrentlyTyped.substring(0, colonIndex );
+		var attributeValue ;
 		if(lastConditionCurrentlyTyped.indexOf(",") > 0){
 			var comaIndex = lastConditionCurrentlyTyped.lastIndexOf(",");
-			var attributeValue = lastConditionCurrentlyTyped.substring(comaIndex + 1);			
+			attributeValue = lastConditionCurrentlyTyped.substring(comaIndex + 1);			
 		}else{			
-			var attributeValue = lastConditionCurrentlyTyped.substring(colonIndex + 1);
+			attributeValue = lastConditionCurrentlyTyped.substring(colonIndex + 1);
 		}
 		var attributePossibleValues = this.getPossibleValues( attributeName ) ;
 		if ( attributePossibleValues === undefined ) {
@@ -45,13 +56,9 @@ var Completer = function( attributes ){
 		} else {
 			return $.ui.autocomplete.filter(attributePossibleValues, attributeValue);
 		}
-	};
+	} ;
 	
-	this.getPossibleValues = function( attributeName ){
-		var attribute = this.getAttribute(attributeName);
-		if ( attribute.possibleValues === undefined ) {
-			return undefined;
-		}
+	this.getPossibleValuesFromTableValues = function ( attribute ) {
 		if ( ! attribute.mappedValues ) {
 			return attribute.possibleValues ;
 		} else {
@@ -63,15 +70,30 @@ var Completer = function( attributes ){
 			}
 			return possibleValues ;
 		}
-	};
+	} ;
 	
+	this.getPossibleValuesFromRestUrl = function ( attribute ) {
+
+	} ;
+
+	this.getPossibleValues = function( attributeName ){
+		var attribute = this.getAttribute(attributeName);
+		if ( attribute.restSearchUrl !== undefined ) {
+			return this.getPossibleValuesFromRestUrl( attribute ) ;
+		}
+		if ( attribute.possibleValues !== undefined ) {
+			return this.getPossibleValuesFromTableValues( attribute ) ;
+		}
+		return undefined;
+	} ;
+
 	this.getAttributeNames = function() {
 		var attributeNames = new Array(attributes.length);
 		for( i = 0 ; i < attributes.length ; i++ ){
 			attributeNames[i] = attributes[i].naturalName;
 		}
 		return attributeNames;	
-	};
+	} ;
 	
 	this.getAttribute = function( attributeName ){
 		for( i = 0 ; i < attributes.length ; i++ ){
@@ -79,14 +101,14 @@ var Completer = function( attributes ){
 				return attributes[i];
 			}
 		}
-	}
+	} ;
 	
 	this.complete = function( string, selectedItem ){
 		var fullConditionsAsString = "";
 		var fullConditionsAsArray = this.parser.splitConditions(string);
 		var lastConditionCurrentlyTyped = this.parser.getLastConditionCurrentlyTyped(string);
 		
-		if ( fullConditionsAsArray !=  null ) {
+		if ( fullConditionsAsArray !==  null ) {
 			var fullConditionsLength = fullConditionsAsArray.length;
 			if(fullConditionsAsArray[fullConditionsLength - 1] == lastConditionCurrentlyTyped){
 				fullConditionsLength -= 1;
@@ -107,7 +129,7 @@ var Completer = function( attributes ){
 			}
 		}
 		return completedNaturalQuery;
-	}
+	} ;
 	
 	this.completeSimpleValueFilter = function(fullConditions, lastConditionCurrentlyTyped, selectedItem) {
 		var completedNaturalQuery = "";
@@ -121,7 +143,7 @@ var Completer = function( attributes ){
 			completedNaturalQuery = fullConditions + attributeName + selectedItem.label + " ";
 		}
 		return completedNaturalQuery;
-	}
+	} ;
 	
 	this.completeMultiValueFilter = function(fullConditions, lastConditionCurrentlyTyped, selectedItem) {
 		var completedNaturalQuery = "";
@@ -134,5 +156,5 @@ var Completer = function( attributes ){
 			completedNaturalQuery = fullConditions + attributeNameAndFirstValues + selectedItem.label + " ";
 		}
 		return completedNaturalQuery;
-	}
-}
+	} ;
+} ;

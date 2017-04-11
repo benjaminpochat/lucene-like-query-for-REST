@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sample</title>
+
+	<!-- external dependencies -->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	
+	<!-- naturalQueryForREST dependencies -->
+	<script src="../src/Parser.js"></script>
+	<script src="../src/Completer.js"></script>
+	<script src="../src/Attribute.js"></script>
+	<script src="../src/Converter.js"></script>
+	<script src="../src/NaturalQueryProcessor.js"></script>
+
+	<script>
+	  converter = NaturalQuery(
+		  "#naturalQuery", [{
+		  	naturalName: "country" ,
+		  	restSearchUrl: "https://restcountries.eu/rest/v2/name/{0}",
+		  	restValueField: "name"
+		  }]
+		).process();
+	  
+	  $(function() {
+	  	$('#converter-button').on(
+	    	"click", 
+	      function() {
+	      	$('#generated-url').text(converter.convert());
+	      });
+	  });
+	</script>
+</head>
+
+<body>
+  <div id="user-input">
+    <label for="naturalQuery">natural query : </label>
+    <input id="naturalQuery" style="width:400px;">
+  </div>
+  <div>
+    <button id="converter-button">create REST filter</button>
+  </div>
+  FIQL filter : 
+  <div id="generated-url">
+  </div>
+</body>
+
+
+</html>
