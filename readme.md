@@ -94,9 +94,13 @@ converter.convert();
 It returns a REST query.
 
 For instance, with the example above, the user types that :
-`title:"around the world" artist:"daft punk" year:[2000 2017] style:electro`
+```
+title:"around the world" artist:"daft punk" year:[2000 2017] style:electro
+```
 And the conversion returns this :
-`title eq 'around the world' and artist eq 'daft punk' and year gt '2000' and year lt '2017' and style eq '5'`
+```
+title eq 'around the world' and artist eq 'daft punk' and year gt '2000' and year lt '2017' and style eq '5'
+```
 
 # Running samples
 
