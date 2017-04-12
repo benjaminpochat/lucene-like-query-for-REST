@@ -4,27 +4,41 @@ A converter can be initilized in javascript like this :
 
 ```javascript
 	converter = NaturalQuery(
-		"#naturalQuery", 		// the selector of a div where the input will be inserted
+		"#naturalQuery", 	// the selector of a div 
+							// 	where the input will be inserted
 		[
 			{
-				naturalName: "title"	// the name of a filter attribute, without any value
+				naturalName: "title"	// the name of a filter 
+										// 	attribute, without any value
 			}, {
-				naturalName: "year"		// the name of another attribute, without any value
+				naturalName: "year"		// the name of another attribute, 
+										//	without any value
 			}, {
-				naturalName: "artist",	// the name of a second filter attribute, with a list of hard-coded possible values
+				naturalName: "artist",	// the name of a second filter 
+										//	attribute, with a list of 
+										//	hard-coded possible values
 				possibleValues: [
 					"daft punk",
 					"moriarty",
 					"the rolling stones",
 					"abba" ]
 			}, {
-				naturalName: "country" ,	// the name of a third filter attribute, with a list of possible values given by a rest API
-				restAPIUrl: "https://restcountries.eu/rest/v2/",	// the url for the rest API
-				restMapperCallback: function ( countryJson ) {		// a callback function called to map the API's response into a list of possible values
+				naturalName: "country" ,	// the name of a third filter 
+											//	attribute, with a list of 
+											//	possible values given by a rest API
+				restAPIUrl: "https://restcountries.eu/rest/v2/",	// the url for 
+																	//	the rest API
+				restMapperCallback: function ( countryJson ) {		// a callback function 
+																	//	called to map the 
+																	//	API's response into 
+																	//	a list of possible values
 					return countryJson.name ;
 				}
 			}, {
-				naturalName: "style" ,		// the name of a forth filter attribute, with a list of key/values. The values are displayed to the user, the keys are used in the converted query.
+				naturalName: "style" ,		// the name of a forth filter attribute, 
+											//	with a list of key/values. The values are 
+											//	displayed to the user, the keys are used in the 
+											//	converted query.
 				possibleValues: [
 				{key: 1, value: "rock"},
 				{key: 2, value: "jazz"},
