@@ -1,8 +1,8 @@
-var NaturalQuery = function ( selector, attributes ){
-	return new NaturalQueryProcessor ( selector, attributes );
+var NaturalQuery = function ( selector, attributes, restFormat ){
+	return new NaturalQueryProcessor ( selector, attributes, restFormat );
 };
 
-var NaturalQueryProcessor = function ( selector, attributes ) {
+var NaturalQueryProcessor = function ( selector, attributes, restFormat ) {
 	var completer = new Completer(attributes);
 		
 	/**
@@ -22,10 +22,10 @@ var NaturalQueryProcessor = function ( selector, attributes ) {
 				}
 			});
 		});
-		return new Converter( selector, attributes );
+		return new Converter( selector, attributes, restFormat );
 	} ;
 	
-	this.getPossibleValues = function (request, response) {
+	this.getPossibleValues = function ( request, response ) {
 		console.log("typed data = " + request.term);
 		possibleValues = completer.getPossibleCompletedQueries(request.term);
 		response(possibleValues);

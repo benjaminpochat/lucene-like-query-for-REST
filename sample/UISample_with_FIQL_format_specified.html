@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Simple example</title>
+	<title>Example with REST format selection</title>
 
 	<!-- external dependencies -->
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
@@ -19,7 +19,8 @@
 
 	<script>
 	converter = NaturalQuery(
-		"#naturalQuery", [{
+		"#naturalQuery", 
+		[{
 			naturalName: "title"
 		}, {
 			naturalName: "year"
@@ -30,9 +31,10 @@
 			{code:2, value: "moriarty"}, 
 			{code:3, value: "the rolling stones"},
 			{code:4, value: "abba"} ]
-		}]
+		}],
+		"FIQL"
 		).process();
-	
+
 	$(function() {
 		$('#converter-button').on(
 			"click", 
@@ -45,7 +47,7 @@
 
 <body>
 	<p>
-		A very simple example, with with the following attributes : "title", "year", "artist".
+		An example where the REST format used is specifically set to "FIQL".
 	</p>
 	<p>
 		<div id="user-input">
@@ -55,14 +57,15 @@
 	</p>
 	<p>
 		<div>
-			<button id="converter-button">create REST filter</button>
+			<button id="converter-button">create REST FIQL filter</button>
 		</div>
 	</p>
 	<p>
-		OData filter : 
+		FIQL filter : 
 		<div id="generated-url">
 		</div>
 	</p>
 </body>
+
 
 </html>
