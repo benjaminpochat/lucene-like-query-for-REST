@@ -104,7 +104,12 @@ title eq 'around the world' and artist eq 'daft punk' and year gt '2000' and yea
 
 # Running samples
 
-Try it localy with the examples given in the sample folder in this repo, or or try it online on [jsfiddle.net](https://jsfiddle.net/benjaminpochat/ngpqv0gt/)
+Try it localy with the examples given in the sample folder in this repo.
+Or or try it online on jsfiddle.net :
+* [simple example](https://jsfiddle.net/benjaminpochat/z19b4nvo/)
+* [example with key/value values](https://jsfiddle.net/benjaminpochat/qs9k2z9h/)
+* [example with FIQL format](https://jsfiddle.net/benjaminpochat/eLa2th6x/)
+* [example with rest API for possible values](https://jsfiddle.net/benjaminpochat/0kkdsbtw/)
 
 
 # Features implemented
