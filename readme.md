@@ -26,13 +26,17 @@ converter.convert();
 It returns a REST query.
 
 For instance, with the example above, the user types that :
-`artist:abba artist:"daft punk"`
+```
+artist:abba artist:"daft punk"
+```
 And the conversion returns this :
-`artist eq 'abba' and artist eq 'daft punk'`
+```
+artist eq 'abba' and artist eq 'daft punk'
+```
 
 # More complete sample
 
-A converter can be initilized in javascript like this :
+A more complete converter can be initilized in javascript like this :
 
 ```javascript
   converter = NaturalQuery(
@@ -46,7 +50,7 @@ A converter can be initilized in javascript like this :
         naturalName: "year"  // the name of another attribute, 
                              //  without any value
       }, {
-        naturalName: "artist",  // the name of a second filter 
+        naturalName: "artist",  // the name of a filter 
                                 //  attribute, with a list of 
                                 //  hard-coded possible values
         possibleValues: [
@@ -55,7 +59,7 @@ A converter can be initilized in javascript like this :
           "the rolling stones",
           "abba" ]
       }, {
-        naturalName: "country" ,  // the name of a third filter 
+        naturalName: "country" ,  // the name of a filter 
                                   //  attribute, with a list of 
                                   //  possible values given by a rest API
         restAPIUrl: "https://restcountries.eu/rest/v2/",  // the url for 
@@ -67,7 +71,7 @@ A converter can be initilized in javascript like this :
             return countryJson.name ;
 		  }
         }, {
-          naturalName: "style" ,  // the name of a forth filter attribute, 
+          naturalName: "style" ,  // the name of a filter attribute, 
                                   //  with a list of key/values. The values are 
                                   //  displayed to the user, the keys are used in the 
                                   //  converted query.
@@ -99,7 +103,8 @@ And the conversion returns this :
 Try it localy with the examples given in the sample folder in this repo, or or try it online on [jsfiddle.net](https://jsfiddle.net/benjaminpochat/ngpqv0gt/)
 
 
-# Implemented :
+# Features implemented
+
 * parsing of a simplified Lucene query syntax including the following patterns :
 	* `name:jean` (simple equal filter, with no white space) 
 	* `band:"daft punk"` (equal filter with white spaces) 
@@ -112,12 +117,13 @@ Try it localy with the examples given in the sample folder in this repo, or or t
 * conversion into [FIQL filter format](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
 * autocompletion with values given from REST url
 
-# TODOs : 
+# TODOs
+
 1. enable a default attribute for the conditions with no `title:value` but just `value` 
-3. add a tool like selectize.js, chosen or select2 to glue a condition that has been typed
+2. add a tool like selectize.js, chosen or select2 to "glue" a filter condition that has been typed
 
 
-# References : 
+# References
 
 https://lucene.apache.org/core/3_5_0/queryparsersyntax.html
 
