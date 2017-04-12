@@ -1,56 +1,87 @@
 A  javascript utility to autocomplete and convert queries written in simplified Lucene-like query syntax into a [query language supported by CXF](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages).
 
+# Simple sample
+
 A converter can be initilized in javascript like this :
 
 ```javascript
-	converter = NaturalQuery(
-		"#naturalQuery", 	// the selector of a div 
-							// 	where the input will be inserted
-		[
-			{
-				naturalName: "title"	// the name of a filter 
-										// 	attribute, without any value
-			}, {
-				naturalName: "year"		// the name of another attribute, 
-										//	without any value
-			}, {
-				naturalName: "artist",	// the name of a second filter 
-										//	attribute, with a list of 
-										//	hard-coded possible values
-				possibleValues: [
-					"daft punk",
-					"moriarty",
-					"the rolling stones",
-					"abba" ]
-			}, {
-				naturalName: "country" ,	// the name of a third filter 
-											//	attribute, with a list of 
-											//	possible values given by a rest API
-				restAPIUrl: "https://restcountries.eu/rest/v2/",	// the url for 
-																	//	the rest API
-				restMapperCallback: function ( countryJson ) {		// a callback function 
-																	//	called to map the 
-																	//	API's response into 
-																	//	a list of possible values
-					return countryJson.name ;
-				}
-			}, {
-				naturalName: "style" ,		// the name of a forth filter attribute, 
-											//	with a list of key/values. The values are 
-											//	displayed to the user, the keys are used in the 
-											//	converted query.
-				possibleValues: [
-				{key: 1, value: "rock"},
-				{key: 2, value: "jazz"},
-				{key: 3, value: "musette"},
-				{key: 4, value: "classic"},
-				{key: 5, value: "electro"}
-				] ,
-				mappedValues: true
-			}
-			).process();
+  converter = NaturalQuery(
+    "#naturalQuery",  
+    [
+      {
+        naturalName: "artist",  
+        possibleValues: [
+          "daft punk",
+          "moriarty",
+          "the rolling stones",
+          "abba" ]
+      }]).process();
 ```
-This code inserts an auto-completed input in the div #naturalQuery.
+This code inserts an auto-complete input in the div #naturalQuery.
+
+To convert the natural query typed by the user into a REST query (OData format by default), use this code :
+```javascript
+converter.convert();
+```
+It returns a REST query.
+
+For instance, with the example above, the user types that :
+`artist:abba artist:"daft punk"`
+And the conversion returns this :
+`artist eq 'abba' and artist eq 'daft punk'`
+
+# More complete sample
+
+A converter can be initilized in javascript like this :
+
+```javascript
+  converter = NaturalQuery(
+    "#naturalQuery",  // the selector of a div 
+                      //   where the input will be inserted
+    [
+      {
+        naturalName: "title"  // the name of a filter 
+                              //   attribute, without any value
+      }, {
+        naturalName: "year"  // the name of another attribute, 
+                             //  without any value
+      }, {
+        naturalName: "artist",  // the name of a second filter 
+                                //  attribute, with a list of 
+                                //  hard-coded possible values
+        possibleValues: [
+          "daft punk",
+          "moriarty",
+          "the rolling stones",
+          "abba" ]
+      }, {
+        naturalName: "country" ,  // the name of a third filter 
+                                  //  attribute, with a list of 
+                                  //  possible values given by a rest API
+        restAPIUrl: "https://restcountries.eu/rest/v2/",  // the url for 
+                                                          //  the rest API
+        restMapperCallback: function ( countryJson ) {  // a callback function 
+                                                        //  called to map the 
+                                                        //  API's response into 
+                                                        //  a list of possible values
+            return countryJson.name ;
+		  }
+        }, {
+          naturalName: "style" ,  // the name of a forth filter attribute, 
+                                  //  with a list of key/values. The values are 
+                                  //  displayed to the user, the keys are used in the 
+                                  //  converted query.
+          possibleValues: [
+            {key: 1, value: "rock"},
+            {key: 2, value: "jazz"},
+            {key: 3, value: "musette"},
+            {key: 4, value: "classic"},
+            {key: 5, value: "electro"}
+          ] ,
+          mappedValues: true
+        }]).process();
+```
+This code inserts an auto-complete input in the div #naturalQuery.
 
 To convert the natural query typed by the user into a REST query (OData format by default), use this code :
 ```javascript
@@ -63,6 +94,7 @@ For instance, with the example above, the user types that :
 And the conversion returns this :
 `title eq 'around the world' and artist eq 'daft punk' and year gt '2000' and year lt '2017' and style eq '5'`
 
+# Running samples
 
 Try it localy with the examples given in the sample folder in this repo, or or try it online on [jsfiddle.net](https://jsfiddle.net/benjaminpochat/ngpqv0gt/)
 
