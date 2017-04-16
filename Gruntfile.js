@@ -17,11 +17,11 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+				sourceMap: true
 			},
 			build: {
 				src: 'src/*.js',
-				dest: 'build/<%= pkg.name %>.min.js'
+				dest: 'dist/<%= pkg.name %>.min.js'
 			}
 		}
 	});
@@ -37,6 +37,6 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	//grunt.registerTask('default', 'jasmine', 'uglify');
-	grunt.registerTask('default', ['jasmine', 'jshint']);
+	grunt.registerTask('default', ['jasmine', 'jshint', 'uglify']);
 
 };
