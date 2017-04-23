@@ -6,28 +6,46 @@ var CONTITION_TYPE_EQUAL_WITH_WHITESPACES = "CONTITION_TYPE_EQUAL_WITH_WHITESPAC
 var CONTITION_TYPE_RANGE = "CONTITION_TYPE_RANGE";
 
 /**
- * Describes an attribute used in a query.
+ * Classe that describes an attribute used in a query.
  */
 var Attribute = function(){
 	
-	// the name of the attribute as it appears in the natural query, seen by users  
+	/**
+	 * The name of the attribute as it appears in the natural query, seen by users 
+	 * @type {string}
+	 */
 	this.naturalName = null ;
 	
-	// the list of suggested values for the attribute (used only if restAPIUrl is null)
+	/**
+	 * The list of suggested values for the attribute (used only if restAPIUrl is null)
+	 * @type {array}
+	 */
 	this.possibleValues = null ;
 
-	// a boolean to set if the suggested values are given as a key/value map. 
-	// default is false
-	// if true, the values of the map are suggested to the users, and the keys are used in the REST search api
+	/**
+	 * A boolean to set if the suggested values are given as a key/value map. 
+	 * Default is false.
+	 * If true, the values of the map are suggested to the users, and the keys are used in the REST search API.
+	 * @type {boolean}
+	 */
 	this.mappedValues = null ;
 	
-	// an url to get the possible values through a REST api
+	/**
+	 * an url to get the possible values through a REST API.
+	 * @type {string}
+	 */
 	this.restAPIUrl = null ;
 
-	// the function that maps each result retreived with the rest API into an element used in auto-completion
+	/**
+	 * The function that maps each result retreived with the rest API into an element used in auto-completion
+	 * @type {function}
+	 */
 	this.restMapperCallback = null ;
 
-	// the list of condition types accepted for this attribute
-	//TODO : to be implemented...
+	/**
+	 * TODO : to be implemented...
+	 * The list of condition types accepted for this attribute
+	 * @type {array}
+	 */
 	this.authorizedConditionTypes = null ;
 } ;

@@ -7,7 +7,7 @@
  *   The public function "complete" do that.
  * 
  */
-var Completer = function( attributes ){
+var Completer = function ( attributes ) {
 	/**
 	 * The parser used interprete what the used has typed so far
 	 */
@@ -16,8 +16,8 @@ var Completer = function( attributes ){
 	/**
 	 * Public function to get the list of queries completed, and suggested to the user, 
 	 * matching with the given string, which is what the user has typed so far.
-	 * @param {string} string : what the user has typed so far, should be the begining of a well formed natural query
-	 * @return {Array} : the list of completed queries, suggested to the user
+	 * @param {string} string what the user has typed so far, should be the begining of a well formed natural query
+	 * @return {Array} the list of completed queries, suggested to the user
 	 */
 	this.getPossibleCompletedQueries = function ( string ) {
 		if ( parser.isLastTokenAttributeName( string ) ) {
@@ -34,9 +34,9 @@ var Completer = function( attributes ){
 	  * For instance : 
 	  * complete('country:Fr', 'United Kingdom') 
 	  * => returns 'country:"United Kingdom" '
-	  * @param {string} : the incomplete narural query, typed by the user so far
-	  * @param {selectedItem} : the item (attribute or value) selected in the list suggested
-	  * @return : the natural query completed
+	  * @param {string} string the incomplete narural query, typed by the user so far
+	  * @param {string} selectedItem the item (attribute or value) selected in the list suggested
+	  * @return the natural query completed
 	  */
 	this.complete = function( string, selectedItem ){
 		var fullConditionsAsString = "";
@@ -67,9 +67,10 @@ var Completer = function( attributes ){
 	} ;
 
 	/**
-	 * @param {string} string : the natural query typed so far, 
+	 * Private function
+	 * @param {string} string the natural query typed so far, 
 	 *   where the last token is interprated as the begining of an attribute name
-	 * @return {Array} : the list of the attribute names matching with the string argument.
+	 * @return {array} the list of the attribute names matching with the string argument.
 	 */
 	function getMatchingAttributes ( string ) {
 		var lastConditionCurrentlyTyped = parser.getLastConditionCurrentlyTyped(string); 
@@ -78,9 +79,10 @@ var Completer = function( attributes ){
 	} 
 		
 	/**
-	 * @param {string} string : the natural query typed so far, 
+	 * Private function
+	 * @param {string} string the natural query typed so far, 
 	 *   where the last token is interprated as the begining of value (after a semi-colon)
-	 * @return {Array} : the list of the values matching with the string argument.
+	 * @return {Array} the list of the values matching with the string argument.
 	 */
 	function getMatchingValues ( string ){
 		var lastConditionCurrentlyTyped = parser.getLastConditionCurrentlyTyped(string);
@@ -103,8 +105,8 @@ var Completer = function( attributes ){
 
 	/**
 	 * Private function to get all the value items possible for the attribute name.
-	 * @param {string} attribute name : the name of the attribute we'll be looking for values
-	 * @return {Array} : the list of possible values for the attribute name, unfiltered.
+	 * @param {string} attributeName the name of the attribute we'll be looking for values
+	 * @return {Array} the list of possible values for the attribute name, unfiltered.
 	 */
 	function getPossibleValues ( attributeName ){
 		var attribute = getAttribute(attributeName);
@@ -119,8 +121,8 @@ var Completer = function( attributes ){
 
 	/**
 	 * Private function to get all the possible values from an array in memory.
-	 * @param {Attribute} attribute : an attribute, where the values have been given in an array.
-	 * @return {Array} : all the possible values, unfiltered
+	 * @param {Attribute} attribute an attribute, where the values have been given in an array.
+	 * @return {Array} all the possible values, unfiltered
 	 */
 	function getPossibleValuesFromArrayOfValues ( attribute ) {
 		if ( ! attribute.mappedValues ) {
@@ -138,8 +140,8 @@ var Completer = function( attributes ){
 	
 	/**
 	 * Private function to get all the possible values from a REST API.
-	 * @param {Attribute} attribute : an attribute, where the values have to be reteived from a REST API.
-	 * @return {Array} : all the possible values, unfiltered
+	 * @param {Attribute} attribute an attribute, where the values have to be reteived from a REST API.
+	 * @return {Array} all the possible values, unfiltered
 	 */
 	function getPossibleValuesFromRestAPI ( attribute ) {
 		var possibleValues = null ;
@@ -159,9 +161,10 @@ var Completer = function( attributes ){
 	 * For instance :
 	 * completeSimpleValueFilter('continent:Europe demography>10M', 'spokenLanguage:It', 'Italian')
 	 * => return 'continent:Europe demography>10M spokenLanguage:Italian '
-	 * @param {string} fullConditions : a string representing the part of the natural query with conditions fully types, with atribute name and value(s).
-	 * @param {string} lastConditionCurrentlyTyped : the part of the natural query lastly typed, not uncomplete
-	 * @param {string} selectedItem : the value selected by the user
+	 * @param {string} fullConditions a string representing the part of the natural query with conditions fully types, with atribute name and value(s).
+	 * @param {string} lastConditionCurrentlyTyped the part of the natural query lastly typed, not uncomplete
+	 * @param {string} selectedItem the value selected by the user
+	 * @return {string} a complete filter string
 	 */
 	function completeSimpleValueFilter (fullConditions, lastConditionCurrentlyTyped, selectedItem) {
 		var completedNaturalQuery = "";
@@ -182,9 +185,10 @@ var Completer = function( attributes ){
 	 * For instance :
 	 * completeSimpleValueFilter('continent:Europe demography>10M', 'spokenLanguage:Italian,Ger', 'German')
 	 * => return 'continent:Europe demography>10M spokenLanguage:Italian,German '
-	 * @param {string} fullConditions : a string representing the part of the natural query with conditions fully types, with atribute name and value(s).
-	 * @param {string} lastConditionCurrentlyTyped : the part of the natural query lastly typed, not uncomplete
-	 * @param {string} selectedItem : the value selected by the user
+	 * @param {string} fullConditions a string representing the part of the natural query with conditions fully types, with atribute name and value(s).
+	 * @param {string} lastConditionCurrentlyTyped the part of the natural query lastly typed, not uncomplete
+	 * @param {string} selectedItem the value selected by the user
+	 * @return {string} a complete filter string
 	 */	
 	function completeMultiValueFilter (fullConditions, lastConditionCurrentlyTyped, selectedItem) {
 		var completedNaturalQuery = "";
@@ -201,7 +205,7 @@ var Completer = function( attributes ){
 
 	/**
 	 * Private function to get the names of all the attributes.
-	 * @return {Array} : the name of all the attributes
+	 * @return {Array} the name of all the attributes
 	 */
 	function getAttributeNames () {
 		var attributeNames = new Array(attributes.length);
@@ -213,8 +217,8 @@ var Completer = function( attributes ){
 	
 	/**
 	 * Private function to get an Attribute instance from its name.
-	 * @param {string} attributeName : the name of an attribute
-	 * return {Attribute} : an instance of attribute
+	 * @param {string} attributeName the name of an attribute
+	 * @return {Attribute} an instance of attribute
 	 */ 
 	function getAttribute ( attributeName ){
 		for( i = 0 ; i < attributes.length ; i++ ){
