@@ -29,7 +29,11 @@ describe("parse OData filter", function() {
 	});
 	//TODO : negation, wildchar...
 
-	it("mixed filter", function() {
+	it("mixed filter 1", function() {
+		expect(converter.convertNaturalQuery("artist:moriarty artist:moriarty,\"the rolling stones\"")).toEqual("artist eq 'moriarty' and ( artist eq 'moriarty' or artist eq 'the rolling stones' )");	
+	});
+
+	it("mixed filter 2", function() {
 		expect(converter.convertNaturalQuery("creationDate:[01012016 31122016] label:\"some like it hot\" modificationDate>01011950 name:Marilyn,Gary")).toEqual("creationDate ge '01012016' and creationDate le '31122016' and label eq 'some like it hot' and modificationDate ge '01011950' and ( name eq 'Marilyn' or name eq 'Gary' )");	
 	});
 });
