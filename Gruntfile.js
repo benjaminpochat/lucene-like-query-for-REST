@@ -6,7 +6,8 @@ module.exports = function(grunt) {
 		jasmine: {
 			src : 'src/**/*.js',
 			options:{
-				specs : 'spec/**/*Spec.js'
+				specs : 'spec/**/*Spec.js',
+				vendor : ['https://code.jquery.com/jquery-3.2.1.min.js', 'https://code.jquery.com/ui/1.12.0/jquery-ui.min.js']
 			}
 		},
 		jshint: {
