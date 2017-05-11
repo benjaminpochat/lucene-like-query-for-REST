@@ -1,62 +1,6 @@
-<html>
-<head>
-  <!-- external dependencies -->
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-
-  <!-- naturalQueryForREST dependencies -->
-  <script type="text/javascript" src="./dist/lucene-like-query-for-rest.min.js"></script>
-</head>
-
-<body>
 A  javascript utility to autocomplete and convert queries written in simplified Lucene-like query syntax into a OData or FIQL syntax.
 
 # Simple sample
-
-<script type="text/javascript">
-	converter = NaturalQuery(
-		"#naturalQuery", 
-		[{
-			naturalName: "title"
-		}, {
-			naturalName: "year"
-		}, {
-			naturalName: "artist",
-			possibleValues: [
-			{code:1, value: "daft punk"}, 
-			{code:2, value: "moriarty"}, 
-			{code:3, value: "the rolling stones"},
-			{code:4, value: "abba"} ]
-		}],
-		"FIQL"
-		).process();
-
-	$(function() {
-		$('#converter-button').on(
-			"click", 
-			function() {
-				$('#generated-url').text(converter.convert());
-			});
-	});
-</script>
-
-<p>
-	<div id="user-input">
-		<label for="naturalQuery">natural query : </label>
-		<input id="naturalQuery" style="width:400px;">
-	</div>
-</p>
-<p>
-	<div>
-		<button id="converter-button">create REST OData filter</button>
-	</div>
-</p>
-<p>
-	OData filter : 
-	<div id="generated-url">
-	</div>
-</p>
 
 A converter can be initilized in javascript like this :
 
