@@ -130,6 +130,10 @@ Or or try it online on jsfiddle.net :
 
 See [GitHub issue tracker](https://github.com/benjaminpochat/lucene-like-query-for-REST/issues).
 
+<li>
+<ul>test html</ul>
+<ul>test ligne 2</ul>
+</li>
 
 # References
 
