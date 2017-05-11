@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 <html>
 <head>
   <!-- external dependencies -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
   <!-- naturalQueryForREST dependencies -->
-  <script src="./dist/lucene-like-query-for-rest.min.js"></script>
+  <script type="text/javascript" src="./dist/lucene-like-query-for-rest.min.js"></script>
 </head>
 
 <body>
@@ -15,7 +14,7 @@ A  javascript utility to autocomplete and convert queries written in simplified 
 
 # Simple sample
 
-<script type="javascript">
+<script type="text/javascript">
 	converter = NaturalQuery(
 		"#naturalQuery", 
 		[{
