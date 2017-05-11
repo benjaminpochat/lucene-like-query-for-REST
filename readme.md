@@ -128,20 +128,20 @@ Or or try it online on jsfiddle.net :
 
 # TODOs
 
-1. enable a default attribute for the conditions with no `title:value` but just `value` 
-2. add a tool like selectize.js, chosen or select2 to "glue" a filter condition that has been typed
+See [GitHub issue tracker](https://github.com/benjaminpochat/lucene-like-query-for-REST/issues).
 
 
 # References
 
-[https://lucene.apache.org/core/3_5_0/queryparsersyntax.html](https://lucene.apache.org/core/3_5_0/queryparsersyntax.html)
+[Lucene query syntax](https://lucene.apache.org/core/3_5_0/queryparsersyntax.html)
 
-[https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages)
+[Query languages supported by CXF](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages)
 
-[https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
+[FIQL syntax specifications](https://tools.ietf.org/html/draft-nottingham-atompub-fiql-00)
 
-[http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792](http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792)
+[OData syntax specifications](http://docs.oasis-open.org/odata/odata/v4.0/cos01/part2-url-conventions/odata-v4.0-cos01-part2-url-conventions.html#_Toc372793792)
 
-[http://www.wseas.us/e-library/conferences/2012/Kos/COMCOM/COMCOM-48.pdf](http://www.wseas.us/e-library/conferences/2012/Kos/COMCOM/COMCOM-48.pdf)
+[Research paper "User friendly querying  of weakly structured data", by Pavel KÁCHA](http://www.wseas.us/e-library/conferences/2012/Kos/COMCOM/COMCOM-48.pdf)
 
-[http://events.linuxfoundation.org/sites/events/files/slides/Apache%20CXF%2C%20Tika%20and%20Lucene.pdf](http://events.linuxfoundation.org/sites/events/files/slides/Apache%20CXF%2C%20Tika%20and%20Lucene.pdf)
+[Introduction about serching REST APIs "Apache CXF, Tika and Lucene - The power of search the JAX-RS way", by Andriy
+REDKO](http://events.linuxfoundation.org/sites/events/files/slides/Apache%20CXF%2C%20Tika%20and%20Lucene.pdf)
