@@ -1,6 +1,58 @@
+<!-- external dependencies -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+<!-- naturalQueryForREST dependencies -->
+<script src="./dist/lucene-like-query-for-rest.min.js"></script>
+
 A  javascript utility to autocomplete and convert queries written in simplified Lucene-like query syntax into a [query language supported by CXF](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages).
 
 # Simple sample
+
+<script type="javascript">
+	converter = NaturalQuery(
+		"#naturalQuery", 
+		[{
+			naturalName: "title"
+		}, {
+			naturalName: "year"
+		}, {
+			naturalName: "artist",
+			possibleValues: [
+			{code:1, value: "daft punk"}, 
+			{code:2, value: "moriarty"}, 
+			{code:3, value: "the rolling stones"},
+			{code:4, value: "abba"} ]
+		}],
+		"FIQL"
+		).process();
+
+	$(function() {
+		$('#converter-button').on(
+			"click", 
+			function() {
+				$('#generated-url').text(converter.convert());
+			});
+	});
+</script>
+
+<p>
+	<div id="user-input">
+		<label for="naturalQuery">natural query : </label>
+		<input id="naturalQuery" style="width:400px;">
+	</div>
+</p>
+<p>
+	<div>
+		<button id="converter-button">create REST OData filter</button>
+	</div>
+</p>
+<p>
+	OData filter : 
+	<div id="generated-url">
+	</div>
+</p>
 
 A converter can be initilized in javascript like this :
 
@@ -129,11 +181,6 @@ Or or try it online on jsfiddle.net :
 # TODOs
 
 See [GitHub issue tracker](https://github.com/benjaminpochat/lucene-like-query-for-REST/issues).
-
-<li>
-<ul>test html</ul>
-<ul>test ligne 2</ul>
-</li>
 
 # References
 
