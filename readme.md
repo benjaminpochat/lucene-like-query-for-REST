@@ -1,12 +1,17 @@
-<!-- external dependencies -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- external dependencies -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
-<!-- naturalQueryForREST dependencies -->
-<script src="./dist/lucene-like-query-for-rest.min.js"></script>
+  <!-- naturalQueryForREST dependencies -->
+  <script src="./dist/lucene-like-query-for-rest.min.js"></script>
+</head>
 
-A  javascript utility to autocomplete and convert queries written in simplified Lucene-like query syntax into a [query language supported by CXF](https://cxf.apache.org/docs/jax-rs-search.html#JAX-RSSearch-SupportedQueryLanguages).
+<body>
+A  javascript utility to autocomplete and convert queries written in simplified Lucene-like query syntax into a OData or FIQL syntax.
 
 # Simple sample
 
@@ -196,3 +201,5 @@ See [GitHub issue tracker](https://github.com/benjaminpochat/lucene-like-query-f
 
 [Introduction about serching REST APIs "Apache CXF, Tika and Lucene - The power of search the JAX-RS way", by Andriy
 REDKO](http://events.linuxfoundation.org/sites/events/files/slides/Apache%20CXF%2C%20Tika%20and%20Lucene.pdf)
+</body>
+</html>
