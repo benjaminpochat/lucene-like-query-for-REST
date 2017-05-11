@@ -144,5 +144,3 @@ See [GitHub issue tracker](https://github.com/benjaminpochat/lucene-like-query-f
 
 [Introduction about serching REST APIs "Apache CXF, Tika and Lucene - The power of search the JAX-RS way", by Andriy
 REDKO](http://events.linuxfoundation.org/sites/events/files/slides/Apache%20CXF%2C%20Tika%20and%20Lucene.pdf)
-</body>
-</html>
